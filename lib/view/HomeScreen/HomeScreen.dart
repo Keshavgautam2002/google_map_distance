@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
           showWidget ? Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+              margin: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
               //padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                             child: Container(
                               alignment: Alignment.center,
-                              padding: const EdgeInsets.all(7),
+                              padding: const EdgeInsets.all(10),
                               decoration: const BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10))
@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             child: Container(
                               alignment: Alignment.center,
-                              padding: EdgeInsets.all(7),
+                              padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))
