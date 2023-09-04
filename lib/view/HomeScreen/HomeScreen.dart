@@ -44,6 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
     //   position: LatLng(26.85512798346257, 75.83070697210495),
     // ),
   };
+  Set<Circle> circles = {};
+
+
 
   getLocation()
   async{
@@ -54,15 +57,26 @@ class _HomeScreenState extends State<HomeScreen> {
           currentPosition!.latitude, currentPosition!.longitude,
         ), zoom: 14)));
         markers.add(Marker(markerId: MarkerId(currentPosition.toString(),),position: LatLng(currentPosition!.latitude,currentPosition!.longitude)));
+        // circles.add(
+        //   Circle(circleId: CircleId(currentPosition.toString()),center: LatLng(currentPosition!.latitude,currentPosition!.longitude),radius: 200,fillColor: Colors.blue.withOpacity(0.4),strokeColor: Colors.blueAccent.withOpacity(0.4),
+        //   ));
         setState(() {});
       }
     GeoLocationService().getDistanceBetween(markers.elementAt(0).position, LatLng(currentPosition!.latitude, currentPosition!.longitude));
 
   }
-
-  findDistance()
+  createCircles()
   async{
-
+    for(Marker m in markers)
+      {
+        Circle circle = Circle(
+          circleId: CircleId(m.markerId.toString()),
+          center: m.position,
+          radius: 200,fillColor: Colors.blue.withOpacity(0.4),strokeColor: Colors.blueAccent.withOpacity(0.4)
+        );
+        circles.add(circle);
+        setState(() {});
+      }
   }
   //26.85526477803854, 75.83360298535659
   //26.85512798346257, 75.83070697210495
@@ -71,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getLocation();
+    createCircles();
     super.initState();
   }
 
@@ -91,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _controller = controller;
               setState(() {});
             },
+            circles: circles,
 
           ),
           showWidget ? Align(
