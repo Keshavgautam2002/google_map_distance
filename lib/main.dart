@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_app/RouteHelper/AppRoutes.dart';
+import 'package:google_maps_app/view/FileUpload/fileUpload.dart';
 import 'package:google_maps_app/view/HomeScreen/HomeScreen.dart';
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: AppRoutes.home,
       getPages: AppRoutes.routes,
-      home: const HomeScreen(),
+      home: const FileUpload(),
     );
   }
 }
