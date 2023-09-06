@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +15,8 @@ class FileUpload extends StatefulWidget {
 }
 
 class _FileUploadState extends State<FileUpload> {
+
+  final method = const MethodChannel("google_maps_app.flutter.dev/image");
 
 
   File? image;
@@ -35,15 +39,34 @@ class _FileUploadState extends State<FileUpload> {
         });
         image = File(result.files.single.path!);
         var bytes = await image!.readAsBytes();
-        var decodedImage = await decodeImageFromList(bytes);
-        width = decodedImage.width;
-        height = decodedImage.height;
-        ui.Image? originalImage = await ui.decodeImage(bytes);
-        String data = "KugelBlitz\nKeshav\nTime and date";
-        ui.drawString(originalImage!,ui.arial_24,(width *0.05).toInt(),(height*0.90).toInt(),data);
-        var temp = await getTemporaryDirectory();
-        await File("${temp.path}/image_from_data.png").writeAsBytes(ui.encodePng(originalImage));
-        image = File("${temp.path}/image_from_data.png");
+        // // var decodedImage = await decodeImageFromList(bytes);
+        // // width = decodedImage.width;
+        // // height = decodedImage.height;
+        // ui.Image? originalImage = await ui.decodeImage(bytes);
+        String data = "KugelBlitz";
+        // ui.drawString(originalImage!,ui.arial_24,(originalImage.width *0.05).toInt(),(originalImage.height*0.90).toInt(),data);
+        // var temp = await getTemporaryDirectory();
+        // await File("${temp.path}/image_from_data.png").writeAsBytes(ui.encodePng(originalImage));
+        // image = File("${temp.path}/image_from_data.png");
+        
+        
+        //call the platform method
+        String base64String = await base64Encode(bytes);
+        Map<dynamic,dynamic> args = {
+          "image" : base64String,
+          "name" : "Name: Keshav Gautam",
+          "emp_code" : "Emp Code: 111",
+          "date" : "Date: 10/09/22 10:00:00",
+          "location" : "Address: 59 Agra road, Jaipur",
+        };
+
+
+        Map? imageString = await method.invokeMapMethod("applyWaterMark",args);
+        print(imageString!["image"]);
+        
+        
+        Uint8List imageBytes = base64Decode(imageString["image"].replaceAll(RegExp(r'\s'), ''));
+        image = await image!.writeAsBytes(imageBytes);
 
         setState(() {
           //image = File.fromRawPath(watermarkedImgBytes);
@@ -112,7 +135,7 @@ class _FileUploadState extends State<FileUpload> {
                       ),
                     ],
                   ),
-                ) : Text("No Data") ,
+                ) : const Text("No Data") ,
               ],
             ),
           ),
