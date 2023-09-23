@@ -54,10 +54,10 @@ class _FileUploadState extends State<FileUpload> {
         String base64String = await base64Encode(bytes);
         Map<dynamic,dynamic> args = {
           "image" : base64String,
-          "name" : "Name: Keshav Gautam",
-          "emp_code" : "Emp Code: 111",
-          "date" : "Date: 10/09/22 10:00:00",
-          "location" : "Address: 59 Agra road, Jaipur",
+          "name" : "Keshav Gautam",
+          "emp_code" : "111",
+          "date" : "10/09/22 10:00:00",
+          "location" : "59.76587698, 90.8768769876",
         };
 
 

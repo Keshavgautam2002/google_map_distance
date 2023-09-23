@@ -13,6 +13,7 @@ import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class MainActivity: FlutterFragmentActivity() {
@@ -36,7 +37,7 @@ class MainActivity: FlutterFragmentActivity() {
                 //find out the font size
                 println("$imageHeight $imageWidth")
 //                val fontSize = 0.05f * minOf(imageWidth, imageHeight)
-                val fontSize = (imageWidth * 3) / 100f;
+                val fontSize = (imageWidth * 2.5 / 100).toFloat();
 
 
 
@@ -49,6 +50,8 @@ class MainActivity: FlutterFragmentActivity() {
                 paint.isAntiAlias = true
 
 
+
+
                 // Position the text (adjust x and y as needed)
                 val x = (imageWidth * 0.05).toFloat();
                 val y = (imageHeight * 0.9).toFloat();
@@ -59,14 +62,19 @@ class MainActivity: FlutterFragmentActivity() {
                 val date : String = call.argument<String>("date").toString();
                 //waterMark.replace(" ","\n");
                 //println(waterMark);
-                var intialHeight = imageHeight - (5 * fontSize);
+
+                //draw a rectangle first
+                var intialHeight = imageHeight - (3 * fontSize);
+                var x1 = imageHeight - (6*fontSize)
+                var y1 = imageWidth * 0.4f
+                var margin = 5;
+                canvas.drawRect(x-margin,intialHeight - fontSize,y1, (intialHeight+(1.5 * fontSize)).toFloat(),paint)
+                paint.color = Color.BLACK
+
                 canvas.drawText(name, x, intialHeight, paint)
                 intialHeight += fontSize;
-                canvas.drawText(empCode, x, intialHeight, paint)
-                intialHeight += fontSize;
-                canvas.drawText(date, x, intialHeight, paint)
-                intialHeight += fontSize;
                 canvas.drawText(address, x, intialHeight, paint)
+
             // Now 'watermarkBitmap' contains the original image with the watermark
 
 
