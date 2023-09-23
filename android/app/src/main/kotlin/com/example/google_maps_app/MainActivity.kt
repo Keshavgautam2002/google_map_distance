@@ -45,6 +45,7 @@ class MainActivity: FlutterFragmentActivity() {
                 val watermarkBitmap = decodedByte.copy(Bitmap.Config.ARGB_8888, true)
                 val canvas = Canvas(watermarkBitmap)
                 val paint = Paint()
+                paint.alpha = 90
                 paint.color = Color.WHITE
                 paint.textSize = fontSize
                 paint.isAntiAlias = true
