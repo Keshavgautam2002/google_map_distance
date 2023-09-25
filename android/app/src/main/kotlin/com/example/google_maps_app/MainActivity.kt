@@ -66,7 +66,6 @@ class MainActivity: FlutterFragmentActivity() {
 
                 //draw a rectangle first
                 var intialHeight = imageHeight - (3 * fontSize);
-                var x1 = imageHeight - (6*fontSize)
                 var y1 = imageWidth * 0.4f
                 var margin = 5;
                 canvas.drawRect(x-margin,intialHeight - fontSize,y1, (intialHeight+(1.5 * fontSize)).toFloat(),paint)
